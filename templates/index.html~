@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Toy Wiki</title>
+  </head>
+  <body>
+    <h1 id="title"></h1>
+    <p id="body"></p>
+    <a href="edit.html"><button type="button">Edit</button></a>
+    <a href="history.html"><button type="button">History</button></a>
+  </body>
+</html>
