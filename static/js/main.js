@@ -9,6 +9,7 @@ function clear() {
 }
 
 function save() {
+    //console.log("Saving...")
     var config = {type: "get"}
     var title = $("#title-field").val()
     var body = $("#body-field").val()
