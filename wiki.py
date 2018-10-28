@@ -13,14 +13,21 @@ def index():
     entry = c.fetchone()
     conn.close()
     if entry:
-        print("Hi")
         return render_template("index.html", title=entry[0], body=entry[1])
-    print(entry)
-    return render_template("index.html", title="", body="")
+    return render_template("index.html", title="No entries", body="")
 
 @app.route("/edit")
 def edit():
-    return render_template("edit.html")
+    conn = sqlite3.connect('wiki.db')
+    c = conn.cursor()
+    #c.execute("CREATE TABLE if not exists contents (title TEXT, body TEXT)")
+    #c.execute("INSERT INTO contents (title, body) VALUES (?, ?)", ('Red', 'Color'))
+    c.execute("SELECT title, body from contents ORDER BY rowid DESC")
+    entry = c.fetchone()
+    conn.close()
+    if entry:
+        return render_template("edit.html", title=entry[0], body=entry[1])
+    return render_template("edit.html", title="", body="")
 
 @app.route("/clear")
 def clear():
