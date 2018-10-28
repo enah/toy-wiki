@@ -7,7 +7,7 @@ app = Flask(__name__)
 def index():
     conn = sqlite3.connect('wiki.db')
     c = conn.cursor()
-    c.execute("CREATE TABLE if not exists contents (title TEXT, body TEXT)")
+    #c.execute("CREATE TABLE if not exists contents (title TEXT, body TEXT)")
     #c.execute("INSERT INTO contents (title, body) VALUES (?, ?)", ('Red', 'Color'))
     c.execute("SELECT title, body from contents ORDER BY rowid DESC")
     entry = c.fetchone()
@@ -29,6 +29,7 @@ def clear():
     c = conn.cursor()
     c.execute("DROP TABLE contents")
     c.execute("CREATE TABLE if not exists contents (title TEXT, body TEXT)")
+    conn.commit()
     conn.close()
     return render_template("edit.html")
 
@@ -41,6 +42,7 @@ def save():
     conn = sqlite3.connect('wiki.db')
     c = conn.cursor()
     c.execute("INSERT INTO contents (title, body) VALUES (?, ?)", (title, body))
+    conn.commit()
     conn.close()
     return render_template("edit.html")
 
